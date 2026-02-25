@@ -1,222 +1,167 @@
 # rag-salesforce-architect
 
-RAG (Retrieval-Augmented Generation) system designed with an **enterprise/architect mindset**
-to answer questions about Salesforce technical documentation (Apex, Flows, ADRs, Confluence exports, PDFs).
+RAG (Retrieval-Augmented Generation) system designed with an enterprise
+/ architect mindset to answer questions about Salesforce technical
+documentation (Apex, Flows, ADRs, Confluence exports, PDFs).
 
-This project focuses on:
+------------------------------------------------------------------------
 
-- Grounded answers (no hallucinations)
-- Explicit evidence retrieval
-- Clean modular architecture
-- Local-first design (FAISS)
-- API-ready structure (FastAPI)
+## 🚀 Project Vision
 
----
+This project aims to build a production-style Retrieval-Augmented
+Generation (RAG) system with:
 
-# 🚀 Project Vision
+-   Grounded answers (no hallucinations)
+-   Explicit evidence retrieval
+-   Clean modular architecture
+-   Local-first FAISS vector store
+-   FastAPI service layer
+-   Evaluation-first mindset
 
-The goal is to design a Retrieval-Augmented Generation system as an AI Architect would:
+------------------------------------------------------------------------
 
-- Ingest technical documentation
-- Chunk and embed documents
-- Store vectors in FAISS
-- Retrieve relevant evidence
-- Generate answers grounded in sources
-- Expose as an API service
-- Include evaluation to reduce hallucinations
+## 📁 Project Structure
 
----
+    rag-salesforce-architect/
+    ├─ data/
+    │  ├─ raw/
+    │  └─ processed/
+    ├─ docs/
+    │  ├─ architecture/
+    │  └─ runbook/
+    ├─ eval/
+    ├─ src/
+    │  └─ rag_sf_architect/
+    │     ├─ ingest/
+    │     ├─ retrieve/
+    │     ├─ llm/
+    │     ├─ api/
+    │     └─ scripts/
+    ├─ tests/
+    ├─ pyproject.toml
+    └─ README.md
 
-# 📁 Project Structure
-rag-salesforce-architect/
-├─ data/
-│ ├─ raw/ # Input documents
-│ └─ processed/ # FAISS index (gitignored)
-├─ docs/
-│ ├─ architecture/
-│ └─ runbook/
-├─ eval/
-├─ src/
-│ └─ rag_sf_architect/
-│ ├─ ingest/
-│ ├─ retrieve/
-│ ├─ llm/
-│ ├─ api/
-│ └─ scripts/
-├─ tests/
-├─ pyproject.toml
-└─ README.md
+------------------------------------------------------------------------
 
----
+## 🛠 Local Setup
 
-# 🛠 Local Setup
+### 1. Create virtual environment
 
-## 1️⃣ Create virtual environment
-
-```bash
+``` bash
 python -m venv .venv
+```
 
 Windows PowerShell:
 
+``` powershell
 .\.venv\Scripts\Activate.ps1
+```
 
 Upgrade pip:
 
+``` bash
 python -m pip install -U pip
+```
 
 Install project in editable mode:
 
+``` bash
 python -m pip install -e .[dev]
+```
 
-📄 Add Documentation
+------------------------------------------------------------------------
+
+## 📄 Add Documentation
 
 Place your documents inside:
-data/raw/
+
+    data/raw/
 
 Supported formats:
 
-.txt
-.md
-.pdf
+-   .txt
+-   .md
+-   .pdf
 
-Example (Windows PowerShell):
+Example:
 
+``` powershell
 "Documento demo: Apex, Flows, Integraciones, Seguridad." | Out-File -Encoding utf8 .\data\raw\demo.txt
+```
 
-🏗 Build Vector Index
-Recommended (module execution)
+------------------------------------------------------------------------
 
+## 🏗 Build Vector Index
+
+Recommended:
+
+``` bash
 python -m rag_sf_architect.scripts.ingest_local
+```
 
-Alternative (direct file execution)
+Alternative:
 
+``` bash
 python .\src\rag_sf_architect\scripts\ingest_local.py
-
-If successful, you should see:
-
-OK - indexed X chunks into: ./data/processed/index
-
-
 ```
 
-🔎 Query the System
-Recommended (module execution)
+------------------------------------------------------------------------
 
-Alternative (direct file execution)
+## 🔎 Query the System
 
+Recommended:
+
+``` bash
+python -m rag_sf_architect.scripts.query_local "Que temas cubre el documento"
+```
+
+Alternative:
+
+``` bash
 python .\src\rag_sf_architect\scripts\query_local.py "Que temas cubre el documento"
-
-
-Output includes:
-
-* Question
-* Top matching chunks
-* Source file
-* Page number (if PDF)
-* Retrieval score
-
-🧠 Architecture Overview
-
-Current architecture includes:
-
-Document ingestion
-
-Chunking with overlap
-
-Simple baseline embeddings (placeholder)
-
-FAISS vector store
-
-Top-k retrieval
-
-Evidence output
-
-Next iterations:
-
-Replace baseline embeddings with production-grade embeddings
-
-Add LLM integration (Claude / other)
-
-Add grounded answer generation
-
-Add FastAPI endpoints
-
-Add evaluation pipeline
-
-🔐 Design Principles
-
-This project follows enterprise architecture principles:
-
-Modular design
-
-Separation of ingestion / retrieval / generation
-
-Reproducible indexing
-
-Explicit citation of evidence
-
-Local-first (no hidden external dependencies)
-
-Evaluation-driven improvements
-
-🧪 Development
-
-Run tests:
-
-```bash
-pytest
 ```
 
-Lint with Ruff:
+------------------------------------------------------------------------
 
-```bash
-ruff check .
-```
+## 🧠 Architecture Principles
 
-🧱 Roadmap
-Phase 1 – Retrieval Foundation (current)
+-   Modular separation: ingest / retrieve / generate
+-   Reproducible indexing
+-   Explicit citation of evidence
+-   Evaluation-driven improvements
+-   Enterprise-oriented structure
 
-Local ingestion
+------------------------------------------------------------------------
 
-FAISS index
+## 🧱 Roadmap
 
-Evidence retrieval
+### Phase 1 -- Retrieval Foundation
 
-Phase 2 – LLM Integration
+-   Local ingestion
+-   FAISS index
+-   Evidence retrieval
 
-Prompt engineering layer
+### Phase 2 -- LLM Integration
 
-Claude integration
+-   Claude integration
+-   Prompt engineering layer
+-   Grounded answer formatting
 
-Grounded response formatting
+### Phase 3 -- API Exposure
 
-Phase 3 – API Exposure
+-   FastAPI endpoints
+-   /health
+-   /query
+-   /ingest
 
-FastAPI service
+### Phase 4 -- Evaluation & Safety
 
-/health
+-   Groundedness tests
+-   Hallucination detection
+-   Regression dataset
 
-/query
+------------------------------------------------------------------------
 
-/ingest
+## 🏷 License
 
-Phase 4 – Evaluation & Safety
-
-Groundedness tests
-
-Hallucination detection
-
-Regression dataset
-
-📌 Non-Goals (for now)
-
-Multi-tenant authentication
-
-Cloud vector DB
-
-Complex reranking pipelines
-
-Production deployment
-
-🏷 License
 MIT
