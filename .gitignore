@@ -1,0 +1,26 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.pytest_cache/
+.mypy_cache/
+
+# venv
+.venv/
+
+# Env
+.env
+
+# OS / Editor
+.DS_Store
+.vscode/settings.json
+
+# Data / indexes
+data/processed/
+*.faiss
+*.index
+*.pkl
+
+# Logs
+*.log

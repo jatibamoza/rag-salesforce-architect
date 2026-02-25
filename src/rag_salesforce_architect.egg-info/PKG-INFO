@@ -1,0 +1,40 @@
+Metadata-Version: 2.4
+Name: rag-salesforce-architect
+Version: 0.1.0
+Summary: RAG system for Salesforce architecture & dev documentation (grounded answers with citations).
+Requires-Python: >=3.11
+Description-Content-Type: text/markdown
+Requires-Dist: faiss-cpu>=1.13.2
+Requires-Dist: numpy>=1.25.0
+Requires-Dist: pydantic>=2.0.0
+Requires-Dist: python-dotenv>=1.0.0
+Requires-Dist: fastapi>=0.110.0
+Requires-Dist: uvicorn>=0.27.0
+Requires-Dist: pypdf>=4.0.0
+Requires-Dist: markdown>=3.6
+Provides-Extra: dev
+Requires-Dist: pytest>=8.0.0; extra == "dev"
+Requires-Dist: ruff>=0.6.0; extra == "dev"
+
+# rag-salesforce-architect
+
+RAG (Retrieval-Augmented Generation) system designed with an **enterprise/architect mindset** to answer questions about
+Salesforce technical documentation (Apex, Flows, ADRs, Confluence exports, PDFs).
+
+## Goals
+- Ingest technical docs (PDF/MD/TXT)
+- Chunk + embed
+- Store vectors in **FAISS (local)**
+- Retrieve evidence and generate answers **grounded with citations**
+- Expose a minimal **FastAPI** service
+- Include evaluation to reduce hallucinations
+
+## Quickstart (local)
+
+### 1) Setup
+```bash
+python -m venv .venv
+# Windows PowerShell:
+.\.venv\Scripts\Activate.ps1
+python -m pip install -U pip
+python -m pip install -e .[dev]
